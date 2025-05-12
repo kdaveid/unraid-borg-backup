@@ -2,10 +2,9 @@
 
 set -u
 
-
 log_message() {
     local message="$1"
-    echo "$(date "+%m-%d-%Y %T") : $message" 2>&1 | tee -a $LOGFILE
+    echo "$(date "+%m-%d-%Y %T") : $message" 2>&1 | tee -a /logs/log.txt
 }
 
 if [ -z "$REPO_PATH" ]; then
@@ -25,7 +24,6 @@ if [ -z "$REPO_PASS" ]; then
 fi
 
 
-LOGFILE=/logs/log.txt
 SSH_KEY="/root/.ssh/borg_key" # Pfad zum SSH-Key im Container
 
 export BORG_PASSPHRASE=$REPO_PASS
