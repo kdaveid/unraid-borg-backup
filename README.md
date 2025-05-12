@@ -17,6 +17,7 @@ In /mnt/user/borg/ muss es ein .env File geben mit dem Passwort.
 ```ini
 REPO_PASS=mysupersecurepass
 REPO_PATH="ssh://user@server/mnt/backups/"
+SSH_KEY=/root/.ssh/borg_key
 ```
 
 

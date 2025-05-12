@@ -22,9 +22,10 @@ if [ -z "$REPO_PASS" ]; then
     log_message "Error: The environment variable REPO_PASS is not set!"
     exit 1
 fi
-
-
-SSH_KEY="/root/.ssh/borg_key" # Pfad zum SSH-Key im Container
+if [ -z "$SSH_KEY" ]; then
+    log_message "Error: The environment variable SSH_KEY is not set!"
+    exit 1
+fi
 
 export BORG_PASSPHRASE=$REPO_PASS
 
@@ -48,6 +49,9 @@ borg create \
 
 log_message "Borg backup has finished, pruning old backups..."
 log_message "Pruning: Keeping 7 daily, 4 weekly, and 6 monthly backups."
+
 borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 $REPO_PATH
+
+log_message "Pruning completed. Script finished successfully."
 
 unset BORG_PASSPHRASE
