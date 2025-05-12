@@ -2,6 +2,12 @@
 
 set -u
 
+
+log_message() {
+    local message="$1"
+    echo "$(date "+%m-%d-%Y %T") : $message" 2>&1 | tee -a $LOGFILE
+}
+
 if [ -z "$REPO_PATH" ]; then
     log_message "Error: The environment variable REPO_PATH is not set!"
     exit 1
@@ -47,8 +53,3 @@ log_message "Pruning: Keeping 7 daily, 4 weekly, and 6 monthly backups."
 borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 $REPO_PATH
 
 unset BORG_PASSPHRASE
-
-log_message() {
-    local message="$1"
-    echo "$(date "+%m-%d-%Y %T") : $message" 2>&1 | tee -a $LOGFILE
-}
