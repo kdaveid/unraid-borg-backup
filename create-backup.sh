@@ -5,6 +5,8 @@ set -u
 if [ -z "$REPO_PATH" ]; then
     echo "Error: The environment variable REPO_PATH is not set!"
     exit 1
+else
+    echo "Using repository path: $REPO_PATH"
 fi
 if [ -z "$REPO_NAME" ]; then
     echo "Error: The environment variable REPO_NAME is not set!"
