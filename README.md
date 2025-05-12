@@ -15,7 +15,7 @@ git clone https://github.com/kdaveid/unraid-borg-backup.git /mnt/user/borg/
 In /mnt/user/borg/ muss es ein .env File geben mit dem Passwort.
 
 ```ini
-PASSPHRASE=mysupersecurepass
+REPO_PASS=mysupersecurepass
 REPO_PATH="ssh://user@server/mnt/backups/"
 ```
 
