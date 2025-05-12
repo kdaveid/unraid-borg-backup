@@ -6,7 +6,24 @@ if [ -n "$PASSPHRASE" ]; then
 else
     echo "PASSPHRASE ist gesetzt."
 fi
-
+if [ -n "$REPO_PATH" ]; then
+    echo "Fehler: Die Umgebungsvariable REPO_PATH ist nicht gesetzt!"
+    exit 1
+else
+    echo "REPO_PATH ist gesetzt."
+fi
+if [ -n "$REPO_NAME" ]; then
+    echo "Fehler: Die Umgebungsvariable REPO_NAME ist nicht gesetzt!"
+    exit 1
+else
+    echo "REPO_NAME ist gesetzt."
+fi
+if [ -n "$LOGFILE" ]; then
+    echo "Fehler: Die Umgebungsvariable LOGFILE ist nicht gesetzt!"
+    exit 1
+else
+    echo "LOGFILE ist gesetzt."
+fi
 
 
 LOGFILE=/logs/log.txt
