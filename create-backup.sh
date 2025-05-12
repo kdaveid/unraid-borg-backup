@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -u
+set -eu
 
 log_message() {
     local message="$1"
