@@ -36,7 +36,7 @@ docker run --rm  \
 -v $BACKUP_PATH:/mnt/source \
 -v $LOG_PATH:/logs/log.txt \
 -v /boot/config/ssh/borg_key:/root/.ssh/borg_key:ro \
--v ./create-backup.sh:/backup.sh:ro \
+-v /mnt/user/borg/unraid-borg-backup/create-backup.sh:/backup.sh:ro \
 alpine:latest \
 sh -c "apk add --no-cache borgbackup openssh && sh /backup.sh"
 ```
