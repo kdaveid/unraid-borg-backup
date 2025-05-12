@@ -18,12 +18,6 @@ if [ -n "$REPO_NAME" ]; then
 else
     echo "REPO_NAME ist gesetzt."
 fi
-if [ -n "$LOGFILE" ]; then
-    echo "Fehler: Die Umgebungsvariable LOGFILE ist nicht gesetzt!"
-    exit 1
-else
-    echo "LOGFILE ist gesetzt."
-fi
 
 
 LOGFILE=/logs/log.txt
