@@ -2,12 +2,6 @@
 
 set -u
 
-if [ -n "$REPO_PASS" ]; then
-    echo "Fehler: Die Umgebungsvariable REPO_PASS ist nicht gesetzt!"
-    exit 1
-else
-    echo "REPO_PASS ist gesetzt."
-fi
 if [ -n "$REPO_PATH" ]; then
     echo "Fehler: Die Umgebungsvariable REPO_PATH ist nicht gesetzt!"
     exit 1
@@ -19,6 +13,13 @@ if [ -n "$REPO_NAME" ]; then
     exit 1
 else
     echo "REPO_NAME ist gesetzt."
+fi
+
+if [ -n "$REPO_PASS" ]; then
+    echo "Fehler: Die Umgebungsvariable REPO_PASS ist nicht gesetzt!"
+    exit 1
+else
+    echo "REPO_PASS ist gesetzt."
 fi
 
 
