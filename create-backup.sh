@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -u
+
 if [ -n "$REPO_PASS" ]; then
     echo "Fehler: Die Umgebungsvariable REPO_PASS ist nicht gesetzt!"
     exit 1
