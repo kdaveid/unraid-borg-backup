@@ -2,16 +2,16 @@
 
 set -u
 
-if [ -n "$REPO_PATH" ]; then
+if [ -z "$REPO_PATH" ]; then
     echo "Error: The environment variable REPO_PATH is not set!"
     exit 1
 fi
-if [ -n "$REPO_NAME" ]; then
+if [ -z "$REPO_NAME" ]; then
     echo "Error: The environment variable REPO_NAME is not set!"
     exit 1
 fi
 
-if [ -n "$REPO_PASS" ]; then
+if [ -z "$REPO_PASS" ]; then
     echo "Error: The environment variable REPO_PASS is not set!"
     exit 1
 fi
