@@ -1,14 +1,13 @@
 #!/bin/sh
 
-if [ -f .env ]; then
-    # Variablen aus der .env-Datei laden
-    set -o allexport
-    . .env
-    set -o noallexport
-else
-    echo "Fehler: .env-Datei nicht gefunden!"
+if [ -n "$PASSPHRASE" ]; then
+    echo "Fehler: Die Umgebungsvariable PASSPHRASE ist nicht gesetzt!"
     exit 1
+else
+    echo "PASSPHRASE ist gesetzt."
 fi
+
+
 
 LOGFILE=/logs/log.txt
 SOURCE="/mnt/source" # Der gemountete Pfad, der gesichert werden soll

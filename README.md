@@ -25,15 +25,15 @@ REPO_PATH="ssh://user@server/mnt/backups/"
 ```bash
 #!/bin/bash
 
-BACKUP_PATH=/mnt/user/paperless-export
-REPO_NAME=paperless
+export BACKUP_PATH=/mnt/user/paperless-export
+export REPO_NAME=paperless
 
 
 docker run --rm  \
 --env-file .env \
 -e REPO_NAME="$REPO_NAME" \
 -v $BACKUP_PATH:/mnt/source \
--v /boot/logs/borg.log:/logs/log.txt
+-v /boot/logs/borg.log:/logs/log.txt \
 -v /boot/config/ssh/borg_key:/root/.ssh/borg_key:ro \
 -v ./create-backup.sh:/backup.sh:ro \
 alpine:latest \
