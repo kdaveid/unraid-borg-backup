@@ -8,32 +8,41 @@ log_message() {
 }
 
 if [ -z "$REPO_PATH" ]; then
-    log_message "Error: The environment variable REPO_PATH is not set!"
+    echo "Error: The environment variable REPO_PATH is not set!"
     exit 1
 else
     log_message "Using repository path: $REPO_PATH"
 fi
 if [ -z "$REPO_NAME" ]; then
-    log_message "Error: The environment variable REPO_NAME is not set!"
+    echo "Error: The environment variable REPO_NAME is not set!"
     exit 1
 fi
 
-if [ -z "$REPO_PASS" ]; then
-    log_message "Error: The environment variable REPO_PASS is not set!"
-    exit 1
-fi
-if [ -z "$SSH_KEY" ]; then
-    log_message "Error: The environment variable SSH_KEY is not set!"
+if [ -z "$BORG_PASSPHRASE" ]; then
+    echo "Error: The environment variable BORG_PASSPHRASE is not set!"
     exit 1
 fi
 
-export BORG_PASSPHRASE=$REPO_PASS
 
 # Set SSH command to use the specific key
 export BORG_RSH="ssh -i $SSH_KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-log_message "Borg backup has started"
 
+# Check if repository exists, initialize if not
+if ! borg info "$REPO_PATH" > /dev/null 2>&1; then
+  log_message "Repository does not exist. Initializing repository..."
+  borg init --encryption=repokey "$REPO_PATH"
+  INIT_EXIT_CODE=$?
+  if [ $INIT_EXIT_CODE -ne 0 ]; then
+    log_message "ERROR: Failed to initialize repository. Exit code $INIT_EXIT_CODE."
+    exit $INIT_EXIT_CODE
+  fi
+else
+  log_message "Repository exists."
+fi
+
+
+log_message "Borg backup has started" 
 
 # Create a backup
 borg create \
@@ -55,3 +64,4 @@ borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 $REPO_PATH
 log_message "Pruning completed. Script finished successfully."
 
 unset BORG_PASSPHRASE
+
