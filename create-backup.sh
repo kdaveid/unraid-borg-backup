@@ -7,6 +7,13 @@ log_message() {
     echo "$(date "+%m-%d-%Y %T") : $message" 2>&1 | tee -a /logs/log.txt
 }
 
+SSH_KEY_PATH="/ssh/borg_key"
+
+
+if [ ! -f "$SSH_KEY_PATH" ]; then
+    echo "Error: SSH key not found at $SSH_KEY_PATH"
+fi
+
 if [ -z "$REPO_PATH" ]; then
     echo "Error: The environment variable REPO_PATH is not set!"
     exit 1
@@ -25,7 +32,8 @@ fi
 
 
 # Set SSH command to use the specific key
-export BORG_RSH="ssh -i $SSH_KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+export BORG_RSH="ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+export BORG_CACHE_DIR='/mnt/borg/cache'
 
 
 # Check if repository exists, initialize if not
