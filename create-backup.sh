@@ -9,11 +9,6 @@ log_message() {
 
 SSH_KEY_PATH="/ssh/borg_key"
 
-
-if [ ! -f "$SSH_KEY_PATH" ]; then
-    echo "Error: SSH key not found at $SSH_KEY_PATH"
-fi
-
 if [ -z "$REPO_PATH" ]; then
     echo "Error: The environment variable REPO_PATH is not set!"
     exit 1
@@ -34,21 +29,6 @@ fi
 # Set SSH command to use the specific key
 export BORG_RSH="ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 export BORG_CACHE_DIR='/mnt/borg/cache'
-
-
-# # Check if repository exists, initialize if not
-# if ! borg info "$REPO_PATH" > /dev/null 2>&1; then
-#   log_message "Repository does not exist. Initializing repository..."
-#   borg init --encryption=repokey "$REPO_PATH"
-#   INIT_EXIT_CODE=$?
-#   if [ $INIT_EXIT_CODE -ne 0 ]; then
-#     log_message "ERROR: Failed to initialize repository. Exit code $INIT_EXIT_CODE."
-#     exit $INIT_EXIT_CODE
-#   fi
-# else
-#   log_message "Repository exists."
-# fi
-
 
 log_message "Borg backup has started" 
 
