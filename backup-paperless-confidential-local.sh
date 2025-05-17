@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /mnt/user/borg/unraid-borg-backup
+
 export BACKUP_PATH=/mnt/user/paperless-confidential-export
 export REPO_NAME=paperless-cnf
 export REPO_PATH=/mnt/user/backups/borg/

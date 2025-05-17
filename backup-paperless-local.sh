@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /mnt/user/borg/unraid-borg-backup
+
 export BACKUP_PATH=/mnt/user/paperless-export
 export REPO_NAME=paperless
 export REPO_PATH=/mnt/user/backups/borg/
@@ -8,6 +10,7 @@ export LOG_PATH="/boot/logs/borg-paperless-local.log"
 touch $LOG_PATH
 
 docker run --rm  \
+    --name borg-paperless-lcl \
     --env-file .env \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \

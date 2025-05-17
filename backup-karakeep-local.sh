@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /mnt/user/borg/unraid-borg-backup
+
 export BACKUP_PATH=/mnt/user/appdata/karakeep
 export REPO_NAME=karakeep
 export REPO_PATH=/mnt/user/backups/borg/
@@ -8,6 +10,7 @@ export LOG_PATH="/boot/logs/borg-karakeep-lcl.log"
 touch $LOG_PATH
 
 docker run --rm  \
+    --name borg-karakeep-lcl \
     --env-file .env \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \
