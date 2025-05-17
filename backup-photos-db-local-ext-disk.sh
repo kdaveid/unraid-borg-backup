@@ -2,15 +2,15 @@
 
 cd /mnt/user/borg/unraid-borg-backup
 
-export BACKUP_PATH=/mnt/user/photos/immich/
-export REPO_NAME=photos
-export REPO_PATH=/mnt/user/backups/borg/
-export LOG_PATH="/boot/logs/borg-photos-lcl.log"
+export BACKUP_PATH=/mnt/user/photos-db_dumps
+export REPO_NAME=photos-db-dumps
+export REPO_PATH=/mnt/disks/WCK5DGVZ/borg-backup/
+export LOG_PATH="/boot/logs/borg-photos-db-lcl-ext-disk.log"
 
 touch $LOG_PATH
 
 docker run --rm  \
-    --name borg-photos-lcl \
+    --name borg-photos-db-lcl-ext-disk \
     --env-file .env \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \
