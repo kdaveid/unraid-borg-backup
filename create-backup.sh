@@ -47,7 +47,7 @@ borg create \
 log_message "Borg backup has finished, pruning old backups..."
 log_message "Pruning: Keeping 7 daily, 4 weekly, and 6 monthly backups."
 
-borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 $REPO_PATH
+borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 $REPO_PATH -a $REPO_NAME
 
 log_message "Pruning completed. Script finished successfully."
 
