@@ -36,18 +36,18 @@ export BORG_RSH="ssh -i $SSH_KEY_PATH -o UserKnownHostsFile=/dev/null -o StrictH
 export BORG_CACHE_DIR='/mnt/borg/cache'
 
 
-# Check if repository exists, initialize if not
-if ! borg info "$REPO_PATH" > /dev/null 2>&1; then
-  log_message "Repository does not exist. Initializing repository..."
-  borg init --encryption=repokey "$REPO_PATH"
-  INIT_EXIT_CODE=$?
-  if [ $INIT_EXIT_CODE -ne 0 ]; then
-    log_message "ERROR: Failed to initialize repository. Exit code $INIT_EXIT_CODE."
-    exit $INIT_EXIT_CODE
-  fi
-else
-  log_message "Repository exists."
-fi
+# # Check if repository exists, initialize if not
+# if ! borg info "$REPO_PATH" > /dev/null 2>&1; then
+#   log_message "Repository does not exist. Initializing repository..."
+#   borg init --encryption=repokey "$REPO_PATH"
+#   INIT_EXIT_CODE=$?
+#   if [ $INIT_EXIT_CODE -ne 0 ]; then
+#     log_message "ERROR: Failed to initialize repository. Exit code $INIT_EXIT_CODE."
+#     exit $INIT_EXIT_CODE
+#   fi
+# else
+#   log_message "Repository exists."
+# fi
 
 
 log_message "Borg backup has started" 
