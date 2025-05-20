@@ -48,13 +48,14 @@ BORG_EXIT_CODE=$?
 
 if [ $BORG_EXIT_CODE -eq 0 ]; then
     log_message "Borg backup completed successfully."
-    /unraid-scripts/notify -e $REPO_NAME -s "Rocket $REPO_NAME Backup succeeded" -d "Success" -i normal
+    # /unraid-scripts/notify -e $REPO_NAME -s "Rocket $REPO_NAME Backup succeeded" -d "Success" -i normal
 elif [ $BORG_EXIT_CODE -eq 1 ]; then
     log_message "Borg backup completed with warnings."
-    /unraid-scripts/notify -e $REPO_NAME -s "Rocket $REPO_NAME Backup warnings" -d "Completed with warnings, exit code: $BORG_EXIT_CODE" -i warning
+    exit $BORG_EXIT_CODE
+    # /unraid-scripts/notify -e $REPO_NAME -s "Rocket $REPO_NAME Backup warnings" -d "Completed with warnings, exit code: $BORG_EXIT_CODE" -i warning
 else
     log_message "Borg backup failed with errors."
-    /unraid-scripts/notify -e $REPO_NAME -s "Rocket $REPO_NAME Backup FAILED" -d "Backup failed! Exit Code: $BORG_EXIT_CODE" -i warning
+    # /unraid-scripts/notify -e $REPO_NAME -s "Rocket $REPO_NAME Backup FAILED" -d "Backup failed! Exit Code: $BORG_EXIT_CODE" -i warning
     exit $BORG_EXIT_CODE
 fi
 
