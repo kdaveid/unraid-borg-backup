@@ -14,8 +14,9 @@ docker run --rm  \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \
     -v $REPO_PATH:"/mnt/backupdest" \
-    -v $BACKUP_PATH:/mnt/source \
+    -v $BACKUP_PATH:/mnt/source:ro \
     -v $LOG_PATH:/logs/log.txt \
+    -v /usr/local/emhttp/webGui/scripts/:/unraid-scripts:ro \
     -v ./create-backup.sh:/backup.sh:ro \
     alpine:latest \
     sh -c "apk add --no-cache borgbackup openssh && sh /backup.sh"
