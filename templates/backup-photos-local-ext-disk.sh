@@ -24,7 +24,7 @@ docker run --rm  \
     -v $LOG_PATH:/logs/log.txt \
     -v ./create-backup.sh:/backup.sh:ro \
     borg \
-    sh /backup.sh"
+    sh /backup.sh
 
 
 BORG_EXIT_CODE=$?
@@ -37,3 +37,4 @@ else
     $NOTIFY_PATH -e $REPO_NAME -s "Rocket $REPO_NAME Backup FAILED" -d "Backup failed! Exit Code: $BORG_EXIT_CODE" -i warning
     exit $BORG_EXIT_CODE
 fi
+
