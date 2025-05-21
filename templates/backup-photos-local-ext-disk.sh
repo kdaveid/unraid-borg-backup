@@ -3,7 +3,7 @@
 cd /mnt/user/borg/unraid-borg-backup
 
 export NOTIFY_PATH=/usr/local/emhttp/webGui/scripts/notify
-export BORG_CACHE_DIR=/mnt/user/appdata/borg/cache/
+export BORG_CACHE_DIR=/mnt/user/borg/cache/photos/
 
 export BACKUP_PATH=/mnt/user/photos/immich/
 export REPO_NAME=photos
@@ -17,6 +17,7 @@ docker run --rm  \
     --env-file .env \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \
+    -e BORG_FILES_CACHE_SUFFIX=$REPO_NAME-ext-disk \
     -v $BORG_CACHE_DIR:/mnt/borg/cache \
     -v $REPO_PATH:"/mnt/backupdest" \
     -v $BACKUP_PATH:/mnt/source:ro \
