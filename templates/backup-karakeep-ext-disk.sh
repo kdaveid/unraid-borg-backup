@@ -7,13 +7,13 @@ export BORG_CACHE_DIR=/mnt/user/borg/cache/karakeep-local/
 
 export BACKUP_PATH=/mnt/user/appdata/karakeep
 export REPO_NAME=karakeep
-export REPO_PATH=/mnt/user/backups/borg/
-export LOG_PATH="/boot/logs/borg-karakeep-lcl.log"
+export REPO_PATH=/mnt/disks/WCK5DGVZ/borg-backup/
+export LOG_PATH="/boot/logs/borg-karakeep-ext-disk.log"
 
 touch $LOG_PATH
 
 docker run --rm \
-    --name borg-karakeep-lcl \
+    --name borg-karakeep-ext-disk \
     --env-file .env \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \
@@ -22,8 +22,8 @@ docker run --rm \
     -v $BACKUP_PATH:/mnt/source:ro \
     -v $LOG_PATH:/logs/log.txt \
     -v ./create-backup.sh:/backup.sh:ro \
-    alpine:latest \
-    sh -c "apk add --no-cache borgbackup openssh && sh /backup.sh"
+    borg \
+    sh /backup.sh
 
 BORG_EXIT_CODE=$?
 

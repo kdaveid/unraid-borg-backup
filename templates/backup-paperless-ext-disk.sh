@@ -22,8 +22,8 @@ docker run --rm  \
     -v $BACKUP_PATH:/mnt/source:ro \
     -v $LOG_PATH:/logs/log.txt \
     -v ./create-backup.sh:/backup.sh:ro \
-    alpine:latest \
-    sh -c "apk add --no-cache borgbackup openssh && sh /backup.sh"
+    borg \
+    sh /backup.sh
 
 
 BORG_EXIT_CODE=$?
