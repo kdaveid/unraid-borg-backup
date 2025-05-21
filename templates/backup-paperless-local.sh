@@ -2,6 +2,9 @@
 
 cd /mnt/user/borg/unraid-borg-backup
 
+export NOTIFY_PATH=/usr/local/emhttp/webGui/scripts/notify
+export BORG_CACHE_DIR=/mnt/user/appdata/borg/cache/
+
 export BACKUP_PATH=/mnt/user/paperless-export
 export REPO_NAME=paperless
 export REPO_PATH=/mnt/user/backups/borg/
@@ -14,10 +17,21 @@ docker run --rm  \
     --env-file .env \
     -e REPO_NAME="$REPO_NAME" \
     -e REPO_PATH=/mnt/backupdest \
+    -v $BORG_CACHE_DIR:/mnt/borg/cache \
     -v $REPO_PATH:"/mnt/backupdest" \
     -v $BACKUP_PATH:/mnt/source:ro \
     -v $LOG_PATH:/logs/log.txt \
-    -v /usr/local/emhttp/webGui/scripts/:/unraid-scripts:ro \
     -v ./create-backup.sh:/backup.sh:ro \
     alpine:latest \
     sh -c "apk add --no-cache borgbackup openssh && sh /backup.sh"
+
+BORG_EXIT_CODE=$?
+
+if [ $BORG_EXIT_CODE -eq 0 ]; then
+    $NOTIFY_PATH -e $REPO_NAME -s "Rocket $REPO_NAME Backup succeeded" -d "Success" -i normal
+elif [ $BORG_EXIT_CODE -eq 1 ]; then
+    $NOTIFY_PATH -e $REPO_NAME -s "Rocket $REPO_NAME Backup warnings" -d "Completed with warnings, exit code: $BORG_EXIT_CODE" -i warning
+else
+    $NOTIFY_PATH -e $REPO_NAME -s "Rocket $REPO_NAME Backup FAILED" -d "Backup failed! Exit Code: $BORG_EXIT_CODE" -i warning
+    exit $BORG_EXIT_CODE
+fi
