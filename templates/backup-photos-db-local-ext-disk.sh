@@ -3,7 +3,7 @@
 cd /mnt/user/borg/unraid-borg-backup
 
 export NOTIFY_PATH=/usr/local/emhttp/webGui/scripts/notify
-export BORG_CACHE_DIR=/mnt/user/appdata/borg/cache/
+export BORG_CACHE_DIR=/mnt/user/borg/cache/photos-db/
 
 export BACKUP_PATH=/mnt/user/photos-db_dumps
 export REPO_NAME=photos-db-dumps
